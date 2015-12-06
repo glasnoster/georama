@@ -1,2 +1,2 @@
 require 'georama/version'
-require 'georama/georama'
+require 'georama/parser'
