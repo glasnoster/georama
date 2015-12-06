@@ -2,35 +2,61 @@ require 'spec_helper'
 
 describe Georama::Parser do
 
-  describe :parse do
+  describe :url_type do
 
-    it "raises an error when nil is passed in" do
-      expect { Georama::Parser.parse(nil) }.to raise_error ArgumentError, "Expected a valid url got nil"
+    context "with an no path" do
+      it "raises an error" do
+        expect { Georama::Parser.url_type(nil) }.to raise_error ArgumentError, "No path specified"
+      end
     end
 
-    it "raises an error then an non-google url is passed in" do
-      expect { Georama::Parser.parse("foobar") }.to raise_error ArgumentError, "Not a valid google maps url"
+  end
+
+  describe :is_google_maps_url? do
+    context "with no url" do
+      it "raises an error" do
+        expect { Georama::Parser.is_google_maps_url?(nil) }.to raise_error ArgumentError, "No url specified"
+      end
     end
 
-    context "parsing" do
+    context "with an invalid url" do
+      it "returns false" do
+        expect(Georama::Parser.is_google_maps_url?("www.fake.com/foo/bar")).to be_falsey
+      end
+    end
 
-      context "general urls" do
-        let(:url) { "https://www.google.com/maps/@-33.9218305,18.4296954,15z?hl=en" }
-        let(:result) { Georama::Parser.parse(url) }
+    context "with a valid url" do
+      it "returns true" do
+        expect(Georama::Parser.is_google_maps_url?("https://www.google.com/maps/@-33.9218305,18.4296954,15z?hl=en")).to be_truthy
+      end
+    end
+  end
 
-        it "does not raise an error" do
-          expect { Georama::Parser.parse(url) }.to_not raise_error
-        end
-
-        it "delegates to the general parser" do
-          expect(Georama::GeneralParser).to receive(:parse)
-          Georama::Parser.parse(url)
-        end
-
+  describe :get_coordinates do
+    context "with a valid coordinates component" do
+      let(:coordinates_component) { "@-33.9218305,18.4296954,15z?hl=en" }
+      let(:expected_coordinates) do
+        {
+          latitude: -33.9218305,
+          longitude: 18.4296954
+        }
       end
 
+      it "returns a coordinates hash" do
+        expect(Georama::Parser.get_coordinates(coordinates_component)).to eq(expected_coordinates)
+      end
     end
+  end
 
+  describe :metadata do
+    context "with a valid coordinates component" do
+      let(:coordinates_component) { "@-33.9218305,18.4296954,15z?hl=en" }
+      let(:expected_zoom) { 15 }
+
+      it "returns the correct zoom" do
+        expect(Georama::Parser.get_metadata(coordinates_component)[:zoom]).to eq(expected_zoom)
+      end
+    end
   end
 
 end
