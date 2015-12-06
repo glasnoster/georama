@@ -18,6 +18,10 @@ describe Georama::GeneralParser do
         expect(result[:coordinates][:latitude]).to eq(-33.9218305)
         expect(result[:coordinates][:longitude]).to eq(18.4296954)
       end
+
+      it "extracts the zoom factor" do
+        expect(result[:metadata][:zoom]).to eq(15)
+      end
     end
   end
 end
