@@ -13,8 +13,16 @@ describe Georama::Parser do
     end
 
     context "with a general maps path" do
+      let(:path) { "/maps/@-33.9218305,18.4296954,15z?hl=en" }
       it "returns the correct type" do
-        expect(Georama::Parser.url_type("/maps/@-33.9218305,18.4296954,15z?hl=en")).to eq(:general)
+        expect(Georama::Parser.url_type(path)).to eq(:general)
+      end
+    end
+
+    context "with a place path" do
+      let(:path) { "/maps/place/Cape+Town/@-33.9092719,18.8965703,8.13z/data=foobar" }
+      it "returns the correct type" do
+        expect(Georama::Parser.url_type(path)).to eq(:place)
       end
     end
 

@@ -14,6 +14,8 @@ module Georama
       split_path = path.split("/")
       if split_path[2].start_with?("@")
         :general
+      elsif split_path[2] == 'place'
+        :place
       end
     end
 

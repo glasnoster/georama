@@ -33,12 +33,19 @@ module Georama
       metadata[:zoom]
     end
 
+    def place
+      return nil unless type == :place
+      @place ||= path_components[2].gsub("+", " ")
+    end
+
     private
 
     def coordinates_component
       @coordinates_component ||= case type
       when :general
         path_components[1]
+      when :place
+        path_components[3]
       end
     end
 
