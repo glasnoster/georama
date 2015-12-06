@@ -1,5 +1,3 @@
-require 'uri'
-
 module Georama
   class Parser
 
