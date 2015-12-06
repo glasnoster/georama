@@ -2,11 +2,19 @@ require 'spec_helper'
 
 describe Georama::Parser do
 
+  let(:general_url) { "https://www.google.com/maps/@-33.9218305,18.4296954,15z?hl=en" }
+
   describe :url_type do
 
     context "with an no path" do
       it "raises an error" do
         expect { Georama::Parser.url_type(nil) }.to raise_error ArgumentError, "No path specified"
+      end
+    end
+
+    context "with a general maps path" do
+      it "returns the correct type" do
+        expect(Georama::Parser.url_type("/maps/@-33.9218305,18.4296954,15z?hl=en")).to eq(:general)
       end
     end
 
@@ -27,7 +35,7 @@ describe Georama::Parser do
 
     context "with a valid url" do
       it "returns true" do
-        expect(Georama::Parser.is_google_maps_url?("https://www.google.com/maps/@-33.9218305,18.4296954,15z?hl=en")).to be_truthy
+        expect(Georama::Parser.is_google_maps_url?(general_url)).to be_truthy
       end
     end
   end
