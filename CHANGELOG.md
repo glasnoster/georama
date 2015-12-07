@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.2.1
+* Added documentation
+
+
 # 0.2.0
 * Can parse place urls
 
