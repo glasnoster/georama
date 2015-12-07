@@ -6,7 +6,7 @@ A simple google maps url parser
 ## Installation
 
 Simply add the following line to your `Gemfile`:
-```
+```ruby
 gem 'georama'
 ```
 
@@ -14,7 +14,7 @@ gem 'georama'
 
 ### Parsing a general maps url:
 
-```
+```ruby
 url = "https://www.google.com/maps/@-33.9218305,18.4296954,15z?hl=en"
 map_url = Georama::Url.new(url)
 
@@ -34,7 +34,7 @@ map_url.zoom
 
 ### Parsing a place url:
 
-```
+```ruby
 url = "https://www.google.com/maps/place/Cape+Town/@-33.9218305,18.4296954,15z/data=foobar"
 map_url = Georama::Url.new(url)
 
