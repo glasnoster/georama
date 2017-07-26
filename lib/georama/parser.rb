@@ -1,12 +1,18 @@
 module Georama
   class Parser
 
+    def self.is_valid_url?(url)
+      parsed = URI.parse(url)
+      !parsed.host.nil?
+    end
+
     def self.is_google_maps_url?(url)
       raise ArgumentError, "No url specified" if url.nil?
       parsed = URI.parse(url)
-      is_google = parsed.host == "www.google.com"
+      is_www = parsed.host.split('.')[-3] == 'www'
+      is_google = parsed.host.split('.')[-2] == "google"
       is_maps = parsed.path.start_with?("/maps/")
-      is_google && is_maps
+      is_www && is_google && is_maps
     end
 
     def self.url_type(path)

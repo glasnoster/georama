@@ -4,6 +4,7 @@ module Georama
 
     def initialize(url)
       raise ArgumentError, "Expected a valid maps url, got nil" if url.nil?
+      raise ArgumentError, "Not a valid url" unless Georama::Parser.is_valid_url?(url)
       raise ArgumentError, "Not a valid maps url" unless Georama::Parser.is_google_maps_url?(url)
       @url_string = url
       @parsed_url = URI.parse(url)

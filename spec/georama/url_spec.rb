@@ -11,6 +11,14 @@ describe Georama::Url do
       let(:url) { "foo" }
 
       it "raises an error" do
+        expect { Georama::Url.new(url) }.to raise_error ArgumentError, "Not a valid url"
+      end
+    end
+
+    context "with an invalid maps url" do
+      let(:url) { "http://www.foo.bar" }
+
+      it "raises an error" do
         expect { Georama::Url.new(url) }.to raise_error ArgumentError, "Not a valid maps url"
       end
     end
