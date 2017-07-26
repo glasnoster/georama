@@ -37,7 +37,7 @@ describe Georama::Parser do
 
     context "with an invalid url" do
       it "returns false" do
-        expect(Georama::Parser.is_google_maps_url?("www.fake.com/foo/bar")).to be_falsey
+        expect(Georama::Parser.is_google_maps_url?("http://www.fake.com/foo/bar")).to be_falsey
       end
     end
 
