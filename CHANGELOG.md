@@ -1,5 +1,10 @@
 # Changelog
 
+
+# 0.2.2
+* Multiple Google domain suffixes can be parsed
+
+
 # 0.2.1
 * Added documentation
 
