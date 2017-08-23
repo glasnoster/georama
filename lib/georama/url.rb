@@ -36,7 +36,7 @@ module Georama
 
     def place
       return nil unless type == :place
-      @place ||= path_components[2].gsub("+", " ")
+      @place ||= URI.unescape(path_components[2].gsub("+", " "))
     end
 
     private
