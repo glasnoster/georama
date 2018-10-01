@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.3.0 - Release date: 2018-10-01
+* UTF8 support
+
+
 
 # 0.2.2
 * Multiple Google domain suffixes can be parsed
