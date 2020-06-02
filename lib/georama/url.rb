@@ -4,7 +4,7 @@ module Georama
 
     def initialize(url)
       raise ArgumentError, "Expected a valid maps url, got nil" if url.nil?
-      @url_string = URI.encode(url)
+      @url_string = encode(url)
       raise ArgumentError, "Not a valid url" unless Georama::Parser.is_valid_url?(@url_string)
       raise ArgumentError, "Not a valid maps url" unless Georama::Parser.is_google_maps_url?(@url_string)
       @parsed_url = URI.parse(@url_string)
@@ -36,7 +36,7 @@ module Georama
 
     def place
       return nil unless type == :place
-      @place ||= URI.unescape(path_components[2].gsub("+", " "))
+      @place ||= URI.decode_www_form_component(path_components[2])
     end
 
     private
@@ -52,6 +52,12 @@ module Georama
 
     def path_components
       @path_components ||= @parsed_url.path.split("/")[1..-1]
+    end
+
+    def encode(url)
+      uri = URI(url)
+      uri.query = URI.encode_www_form_component(uri.query)
+      uri.to_s
     end
 
   end
